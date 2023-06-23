@@ -22,6 +22,7 @@ static IEdmModel GetEdmModel()
     builder.EntitySet<User>("Users");
     builder.EntitySet<Role>("Roles");
     builder.EntitySet<Publisher>("Publishers");
+    builder.EntitySet<Book>("Books");
     return builder.GetEdmModel();
 }
 

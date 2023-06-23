@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Net.Http.Headers;
 using System.Text.Json;
+using System.Text.Json.Nodes;
 
 namespace eBookStore.Controllers
 {
@@ -67,6 +68,31 @@ namespace eBookStore.Controllers
             };
             List<Book> listProducts = JsonSerializer.Deserialize<List<Book>>(strData, options);
             return View(listProducts);
+        }
+
+        public async Task<IActionResult> Search(string searchTitle)
+        {
+            SetAuthorizationHeader();
+            ProductApiUrl = "https://localhost:7298/odata/Books?$filter=contains(Title,'"+ searchTitle + "')";
+            HttpResponseMessage response = await client.GetAsync(ProductApiUrl);
+            string strData = await response.Content.ReadAsStringAsync();
+
+            dynamic jsonObject = JsonObject.Parse(strData);
+
+            List<Book> books = ((JsonArray)jsonObject["value"]).Select(x => new Book
+            {
+                BookId = (int)x["BookId"],
+                Title = (string)x["Title"],
+                Type = (string)x["Type"],
+                Price = (decimal)x["Price"],
+                Advance = (decimal)x["Advance"],
+                Royalty = (decimal)x["Royalty"],
+                Ytd_sales = (decimal)x["Ytd_sales"],
+                Notes = (string)x["Notes"],
+                Published_date = (DateTime)x["Published_date"],
+                PublisherId = (int)x["PublisherId"],
+            }).ToList();
+            return View("Index", books);
         }
 
         //// GET: Books/Details/5

@@ -9,6 +9,15 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+
+<form asp-action="Search" method="get">
+    <div>
+        <label for="searchTitle">Search by Title:</label>
+        <input type="text" asp-route-id="searchTitle" name="searchTitle" />
+        <button type="submit">Search</button>
+    </div>
+</form>
+
 <table class="table">
     <thead>
         <tr>
