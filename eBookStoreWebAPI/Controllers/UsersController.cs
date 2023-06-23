@@ -1,5 +1,6 @@
 ﻿using BusinessObject;
 using DataAccess.Repositories.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 
@@ -7,6 +8,7 @@ namespace eBookStoreWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly IUserRepository _repo;
@@ -24,6 +26,7 @@ namespace eBookStoreWebAPI.Controllers
         public ActionResult<User> GetUserById(int id) => _repo.GetUserById(id);
 
         [HttpPost]
+        [Authorize(Policy = "AdminOnly")]
         public IActionResult PostUser(User p)
         {
             _repo.SaveUser(p);
@@ -31,6 +34,7 @@ namespace eBookStoreWebAPI.Controllers
         }
 
         [HttpDelete("id")]
+        [Authorize(Policy = "AdminOnly")]
         public IActionResult DeleteUser(int id)
         {
             var p = _repo.GetUserById(id);
@@ -43,6 +47,7 @@ namespace eBookStoreWebAPI.Controllers
         }
 
         [HttpPut("id")]
+        [Authorize(Policy = "AdminOnly")]
         public IActionResult UpdateUser(int id, User p)
         {
             var pTmp = _repo.GetUserById(id);

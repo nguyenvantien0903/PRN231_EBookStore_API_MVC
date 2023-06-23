@@ -1,5 +1,6 @@
 ﻿using BusinessObject;
 using DataAccess.Repositories.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 
@@ -7,6 +8,7 @@ namespace eBookStoreWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PublishersController : Controller
     {
         private readonly IPublisherRepository _repo;
@@ -24,6 +26,7 @@ namespace eBookStoreWebAPI.Controllers
         public ActionResult<Publisher> GetPublisherById(int id) => _repo.GetPublisherById(id);
 
         [HttpPost]
+        [Authorize(Policy = "AdminOnly")]
         public IActionResult PostPublisher(Publisher p)
         {
             _repo.SavePublisher(p);
@@ -31,6 +34,7 @@ namespace eBookStoreWebAPI.Controllers
         }
 
         [HttpDelete("id")]
+        [Authorize(Policy = "AdminOnly")]
         public IActionResult DeletePublisher(int id)
         {
             var p = _repo.GetPublisherById(id);
@@ -43,6 +47,7 @@ namespace eBookStoreWebAPI.Controllers
         }
 
         [HttpPut("id")]
+        [Authorize(Policy = "AdminOnly")]
         public IActionResult UpdatePublisher(int id, Publisher p)
         {
             var pTmp = _repo.GetPublisherById(id);

@@ -11,8 +11,11 @@ namespace DataAccess
 {
     public class eBookStoreDBContext : DbContext
     {
-        public eBookStoreDBContext() { }
+        public eBookStoreDBContext(DbContextOptions<eBookStoreDBContext> options) : base(options) { }
 
+        public eBookStoreDBContext()
+        {
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             var builder = new ConfigurationBuilder()

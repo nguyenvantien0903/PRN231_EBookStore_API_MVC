@@ -27,13 +27,13 @@ namespace eBookStoreWebAPI.Controllers
         }
 
         [HttpGet]
-        [EnableQuery]
         public ActionResult<IEnumerable<Author>> GetAuthors() => _repo.GetAuthors();
 
         [HttpGet("GetById")]
         public ActionResult<Author> GetAuthorById(int id) => _repo.GetAuthorById(id);
 
         [HttpPost]
+        [Authorize(Policy = "AdminOnly")]
         public IActionResult PostAuthor(Author p)
         {
             _repo.SaveAuthor(p);
@@ -54,6 +54,7 @@ namespace eBookStoreWebAPI.Controllers
         }
 
         [HttpPut("id")]
+        [Authorize(Policy = "AdminOnly")]
         public IActionResult UpdateAuthor(int id, Author p)
         {
             var pTmp = _repo.GetAuthorById(id);

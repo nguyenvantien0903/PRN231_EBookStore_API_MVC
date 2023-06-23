@@ -19,9 +19,16 @@ namespace eBookStore.Controllers
             ProductApiUrl = "https://localhost:7298/api/Publishers";
         }
 
+        private void SetAuthorizationHeader()
+        {
+            var token = HttpContext.Session.GetString("JwtToken");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        }
+
         // GET: Products
         public async Task<IActionResult> Index()
         {
+            SetAuthorizationHeader();
             HttpResponseMessage response = await client.GetAsync(ProductApiUrl);
             string strData = await response.Content.ReadAsStringAsync();
 
@@ -32,24 +39,6 @@ namespace eBookStore.Controllers
             List<Publisher> listProducts = JsonSerializer.Deserialize<List<Publisher>>(strData, options);
             return View(listProducts);
         }
-
-        //// GET: Publishers/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null || _context.Publishers == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var author = await _context.Publishers
-        //        .FirstOrDefaultAsync(m => m.PublisherId == id);
-        //    if (author == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(author);
-        //}
 
         public async Task<IActionResult> Create()
         {
@@ -63,6 +52,7 @@ namespace eBookStore.Controllers
             if (ModelState.IsValid)
             {
                 ProductApiUrl = "https://localhost:7298/api/Publishers";
+                SetAuthorizationHeader();
                 HttpResponseMessage response = await client.PostAsJsonAsync(ProductApiUrl, author);
                 return RedirectToAction(nameof(Index));
             }
@@ -77,6 +67,7 @@ namespace eBookStore.Controllers
             }
 
             ProductApiUrl = "https://localhost:7298/api/Publishers/GetById?id=" + id;
+            SetAuthorizationHeader();
             HttpResponseMessage response = await client.GetAsync(ProductApiUrl);
             string strData = await response.Content.ReadAsStringAsync();
 
@@ -107,6 +98,7 @@ namespace eBookStore.Controllers
                 try
                 {
                     ProductApiUrl = "https://localhost:7298/api/Publishers/id?id=" + id;
+                    SetAuthorizationHeader();
                     HttpResponseMessage response = await client.PutAsJsonAsync(ProductApiUrl, author);
                 }
                 catch (DbUpdateConcurrencyException)
@@ -133,6 +125,7 @@ namespace eBookStore.Controllers
             }
 
             ProductApiUrl = "https://localhost:7298/api/Publishers/GetById?id=" + id;
+            SetAuthorizationHeader();
             HttpResponseMessage response = await client.GetAsync(ProductApiUrl);
             string strData = await response.Content.ReadAsStringAsync();
 
@@ -154,6 +147,7 @@ namespace eBookStore.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             ProductApiUrl = "https://localhost:7298/api/Publishers/id?id=" + id;
+            SetAuthorizationHeader();
             HttpResponseMessage response = await client.DeleteAsync(ProductApiUrl);
             return RedirectToAction(nameof(Index));
         }

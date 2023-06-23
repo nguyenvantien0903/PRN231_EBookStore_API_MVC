@@ -20,14 +20,6 @@ namespace eBookStoreWebAPI.Controllers
             config = _config;
         }
 
-        [HttpGet("users")]
-        [Authorize]
-        public ActionResult<IEnumerable<User>> GetUsers()
-        {
-            var data = _repo.GetUsers();
-            return Ok(data);
-        }
-
         [HttpPost("login")]
         [AllowAnonymous]
         public IActionResult AuthenticateAuthen([Bind("Email_adress,Password")] User info)

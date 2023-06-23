@@ -26,7 +26,7 @@ static IEdmModel GetEdmModel()
 }
 
 // Add services to the container.
-//builder.Services.AddDbContext<eBookStoreDBContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("eBookStoreDB")));
+//ssssbuilder.Services.AddDbContext<eBookStoreDBContext>(opt => opt.UseSqlServer(builder.Configuration.GetConnectionString("eBookStoreDB")));
 builder.Services.AddControllers();
 builder.Services.AddControllers().AddJsonOptions(x =>
                 x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
