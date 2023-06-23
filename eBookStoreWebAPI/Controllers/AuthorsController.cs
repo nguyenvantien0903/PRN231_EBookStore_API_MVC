@@ -10,11 +10,13 @@ using DataAccess;
 using Microsoft.AspNetCore.OData.Query;
 using NuGet.Protocol.Core.Types;
 using DataAccess.Repositories.Interface;
+using Microsoft.AspNetCore.Authorization;
 
 namespace eBookStoreWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AuthorsController : ControllerBase
     {
         private readonly IAuthorRepository _repo;
@@ -39,6 +41,7 @@ namespace eBookStoreWebAPI.Controllers
         }
 
         [HttpDelete("id")]
+        [Authorize(Policy = "AdminOnly")]
         public IActionResult DeleteAuthor(int id)
         {
             var p = _repo.GetAuthorById(id);

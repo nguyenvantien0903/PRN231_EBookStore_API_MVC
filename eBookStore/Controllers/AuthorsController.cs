@@ -25,10 +25,21 @@ namespace eBookStore.Controllers
             ProductApiUrl = "https://localhost:7298/api/Authors";
         }
 
+        private void SetAuthorizationHeader()
+        {
+            var token = HttpContext.Session.GetString("JwtToken");
+            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+        }
+
         // GET: Products
         public async Task<IActionResult> Index()
         {
+            SetAuthorizationHeader();
             HttpResponseMessage response = await client.GetAsync(ProductApiUrl);
+            if (!response.IsSuccessStatusCode)
+            {
+                return Unauthorized();
+            }
             string strData = await response.Content.ReadAsStringAsync();
 
             var options = new JsonSerializerOptions
@@ -38,24 +49,6 @@ namespace eBookStore.Controllers
             List<Author> listProducts = JsonSerializer.Deserialize<List<Author>>(strData, options);
             return View(listProducts);
         }
-
-        //// GET: Authors/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null || _context.Authors == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var author = await _context.Authors
-        //        .FirstOrDefaultAsync(m => m.AuthorId == id);
-        //    if (author == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(author);
-        //}
 
         public async Task<IActionResult> Create()
         {
@@ -68,8 +61,13 @@ namespace eBookStore.Controllers
         {
             if (ModelState.IsValid)
             {
+                SetAuthorizationHeader();
                 ProductApiUrl = "https://localhost:7298/api/Authors";
                 HttpResponseMessage response = await client.PostAsJsonAsync(ProductApiUrl, author);
+                if (!response.IsSuccessStatusCode)
+                {
+                    return Unauthorized();
+                }
                 return RedirectToAction(nameof(Index));
             }
             return View(author);
@@ -82,8 +80,13 @@ namespace eBookStore.Controllers
                 return NotFound();
             }
 
+            SetAuthorizationHeader();
             ProductApiUrl = "https://localhost:7298/api/Authors/GetById?id=" + id;
             HttpResponseMessage response = await client.GetAsync(ProductApiUrl);
+            if (!response.IsSuccessStatusCode)
+            {
+                return Unauthorized();
+            }
             string strData = await response.Content.ReadAsStringAsync();
 
             var options = new JsonSerializerOptions
@@ -112,8 +115,13 @@ namespace eBookStore.Controllers
             {
                 try
                 {
+                    SetAuthorizationHeader();
                     ProductApiUrl = "https://localhost:7298/api/Authors/id?id=" + id;
                     HttpResponseMessage response = await client.PutAsJsonAsync(ProductApiUrl, author);
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return Unauthorized();
+                    }
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -138,8 +146,13 @@ namespace eBookStore.Controllers
                 return NotFound();
             }
 
+            SetAuthorizationHeader();
             ProductApiUrl = "https://localhost:7298/api/Authors/GetById?id=" + id;
             HttpResponseMessage response = await client.GetAsync(ProductApiUrl);
+            if (!response.IsSuccessStatusCode)
+            {
+                return Unauthorized();
+            }
             string strData = await response.Content.ReadAsStringAsync();
 
             var options = new JsonSerializerOptions
@@ -159,8 +172,13 @@ namespace eBookStore.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            SetAuthorizationHeader();
             ProductApiUrl = "https://localhost:7298/api/Authors/id?id=" + id;
             HttpResponseMessage response = await client.DeleteAsync(ProductApiUrl);
+            if (!response.IsSuccessStatusCode)
+            {
+                return Unauthorized();
+            }
             return RedirectToAction(nameof(Index));
         }
 

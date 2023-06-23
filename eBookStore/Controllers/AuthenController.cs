@@ -1,5 +1,6 @@
 ﻿using BusinessObject;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Common;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
@@ -29,6 +30,13 @@ namespace eBookStore.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return View(nameof(Login));
+        }
+
         [HttpPost]
         public async Task<IActionResult> LoginUser([Bind("Email_adress,Password")] User p)
         {
@@ -47,7 +55,7 @@ namespace eBookStore.Controllers
             }
             else
             {
-                ViewData["Message"] = "Incorrect UserId or Password!";
+                ViewData["Message"] = "Incorrect Email or Password!";
                 return View(nameof(Login));
             }
         }
@@ -58,7 +66,7 @@ namespace eBookStore.Controllers
             HttpResponseMessage response = await client.PostAsJsonAsync(UserApiUrl + "/register", p);
             if (response.IsSuccessStatusCode)
             {
-                ViewData["Message"] = "Register successfully! Please sign in~";
+                ViewData["Message"] = "Register successfully! Please log in";
                 return View(nameof(Login));
             }
             else

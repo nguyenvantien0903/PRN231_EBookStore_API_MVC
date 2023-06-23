@@ -49,7 +49,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization(options =>
 {
-    options.AddPolicy("AdminOnly", policy => policy.RequireClaim("Role", "admin"));
+    options.AddPolicy("AdminOnly", policy => policy.RequireClaim("Role", "Admin"));
 });
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
