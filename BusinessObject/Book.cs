@@ -35,7 +35,7 @@ namespace BusinessObject
         public DateTime? Published_date { get; set; }
 
         public int PublisherId { get; set; }
-        [JsonIgnore]
+
         public virtual Publisher? Publisher { get; set; }
         [NotMapped]
         [JsonIgnore]

@@ -1,5 +1,5 @@
 ﻿using BusinessObject;
-using DataAccess.Repositories;
+using DataAccess.Repositories.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
 

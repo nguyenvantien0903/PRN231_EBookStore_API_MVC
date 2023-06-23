@@ -1,6 +1,7 @@
 using BusinessObject;
 using DataAccess;
-using DataAccess.Repositories;
+using DataAccess.Repositories.Interface;
+using DataAccess.Repositories.Repository;
 using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OData.Edm;
@@ -36,6 +37,8 @@ builder.Services.AddScoped<IAuthorRepository, AuthorRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<IPublisherRepository, PublisherRepository>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
+
 
 var app = builder.Build();
 

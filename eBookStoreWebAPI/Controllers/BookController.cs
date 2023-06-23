@@ -7,50 +7,50 @@ namespace eBookStoreWebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PublishersController : Controller
+    public class BooksController : ControllerBase
     {
-        private readonly IPublisherRepository _repo;
+        private readonly IBookRepository _repo;
 
-        public PublishersController(IPublisherRepository repo)
+        public BooksController(IBookRepository repo)
         {
             _repo = repo;
         }
 
         [HttpGet]
         [EnableQuery]
-        public ActionResult<IEnumerable<Publisher>> GetPublishers() => _repo.GetPublishers();
+        public ActionResult<IEnumerable<Book>> GetBooks() => _repo.GetBooks();
 
         [HttpGet("GetById")]
-        public ActionResult<Publisher> GetPublisherById(int id) => _repo.GetPublisherById(id);
+        public ActionResult<Book> GetBookById(int id) => _repo.GetBookById(id);
 
         [HttpPost]
-        public IActionResult PostPublisher(Publisher p)
+        public IActionResult PostBook(Book p)
         {
-            _repo.SavePublisher(p);
+            _repo.SaveBook(p);
             return NoContent();
         }
 
         [HttpDelete("id")]
-        public IActionResult DeletePublisher(int id)
+        public IActionResult DeleteBook(int id)
         {
-            var p = _repo.GetPublisherById(id);
+            var p = _repo.GetBookById(id);
             if (p == null)
             {
                 return NotFound();
             }
-            _repo.DeletePublisher(p);
+            _repo.DeleteBook(p);
             return NoContent();
         }
 
         [HttpPut("id")]
-        public IActionResult UpdatePublisher(int id, Publisher p)
+        public IActionResult UpdateBook(int id, Book p)
         {
-            var pTmp = _repo.GetPublisherById(id);
+            var pTmp = _repo.GetBookById(id);
             if (pTmp == null)
             {
                 return NotFound();
             }
-            _repo.UpdatePublisher(p);
+            _repo.UpdateBook(p);
             return NoContent();
         }
     }

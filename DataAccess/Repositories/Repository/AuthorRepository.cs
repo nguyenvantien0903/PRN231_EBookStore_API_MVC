@@ -1,14 +1,15 @@
 ﻿using BusinessObject;
 using DataAccess.DAO;
+using DataAccess.Repositories.Interface;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccess.Repositories
+namespace DataAccess.Repositories.Repository
 {
-    public class AuthorRepository : IAuthorRepository   
+    public class AuthorRepository : IAuthorRepository
     {
         public void DeleteAuthor(Author p) => AuthorDAO.DeleteAuthor(p);
 

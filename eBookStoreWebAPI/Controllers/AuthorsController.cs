@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using BusinessObject;
 using DataAccess;
 using Microsoft.AspNetCore.OData.Query;
-using DataAccess.Repositories;
 using NuGet.Protocol.Core.Types;
+using DataAccess.Repositories.Interface;
 
 namespace eBookStoreWebAPI.Controllers
 {
