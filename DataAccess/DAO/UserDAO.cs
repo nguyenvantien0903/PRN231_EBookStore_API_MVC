@@ -1,4 +1,5 @@
 ﻿using BusinessObject;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -82,6 +83,41 @@ namespace DataAccess.DAO
             {
                 throw new Exception(ex.Message);
             }
+        }
+
+        public static User AuthenticateUser(string email,string password)
+        {
+            var user = new User();
+            try
+            {
+                using (var context = new eBookStoreDBContext())
+                {
+                    user = context.Users.Where(s => s.Email_adress == email && s.Password == password).Include(s => s.Role).Include(s => s.Publisher)
+                        .FirstOrDefault();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return user;
+        }
+
+        internal static User GetUserByEmail(string email)
+        {
+            var user = new User();
+            try
+            {
+                using (var context = new eBookStoreDBContext())
+                {
+                    user = context.Users.Where(s => s.Email_adress == email).FirstOrDefault();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return user;
         }
     }
 }

@@ -16,6 +16,14 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\NVTFT\Desktop\PRN231_code\Assignment02Solution_HE163008\eBookStore
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/NVTFT/Desktop/PRN231_code/Assignment02Solution_HE163008/eBookStore/Views/Authen/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aGVuXExvZ2luLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/NVTFT/Desktop/PRN231_code/Assignment02Solution_HE163008/eBookStore/Views/Authen/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aGVuXFJlZ2lzdGVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/NVTFT/Desktop/PRN231_code/Assignment02Solution_HE163008/eBookStore/Views/Authors/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yc1xDcmVhdGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 

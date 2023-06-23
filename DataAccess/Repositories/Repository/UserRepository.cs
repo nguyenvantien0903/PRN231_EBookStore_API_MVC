@@ -20,5 +20,9 @@ namespace DataAccess.Repositories.Repository
         public void SaveUser(User p) => UserDAO.SaveUser(p);
 
         public void UpdateUser(User p) => UserDAO.UpdateUser(p);
+
+        public User AuthenticateUser(string email, string pwd) => UserDAO.AuthenticateUser(email, pwd);
+
+        public User GetUserByEmail(string email) => UserDAO.GetUserByEmail(email);
     }
 }

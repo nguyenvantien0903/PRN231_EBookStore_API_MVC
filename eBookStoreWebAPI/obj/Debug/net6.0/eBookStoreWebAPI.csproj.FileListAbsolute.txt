@@ -267,3 +267,4 @@ C:\Users\NVTFT\Desktop\PRN231_code\Assignment02Solution_HE163008\eBookStoreWebAP
 C:\Users\NVTFT\Desktop\PRN231_code\Assignment02Solution_HE163008\eBookStoreWebAPI\bin\Debug\net6.0\DataAccess.dll
 C:\Users\NVTFT\Desktop\PRN231_code\Assignment02Solution_HE163008\eBookStoreWebAPI\bin\Debug\net6.0\BusinessObject.pdb
 C:\Users\NVTFT\Desktop\PRN231_code\Assignment02Solution_HE163008\eBookStoreWebAPI\bin\Debug\net6.0\DataAccess.pdb
+C:\Users\NVTFT\Desktop\PRN231_code\Assignment02Solution_HE163008\eBookStoreWebAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

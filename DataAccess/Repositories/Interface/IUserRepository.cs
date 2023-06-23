@@ -18,5 +18,9 @@ namespace DataAccess.Repositories.Interface
         void UpdateUser(User p);
 
         List<User> GetUsers();
+
+        User AuthenticateUser(string email, string pwd);
+
+        User GetUserByEmail(string email);
     }
 }
